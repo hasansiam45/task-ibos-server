@@ -6,8 +6,8 @@ const cors = require('cors');
 
 
 require('dotenv').config();
-// const port = process.env.PORT || 5000;
-const port = 5000;
+const port = process.env.PORT || 5000;
+
 
 
 
@@ -27,6 +27,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
     console.log(err)
     const userCollection = client.db("ibos").collection("userInfo");
+      
     
           app.get('/users', (req, res) => {
             userCollection.find()
@@ -40,9 +41,9 @@ client.connect(err => {
     
     
             app.post('/addUsers', (req, res) => {
-            const newUser = req.body;
-            
-            userCollection.insertOne(newUser)
+                const newUser = req.body;
+                
+                userCollection.insertOne(newUser)
                 .then(result => {
 
                     res.send(result.insertedCount > 0)
